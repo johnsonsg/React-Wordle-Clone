@@ -2,6 +2,12 @@ import React, { useCallback, useEffect, useContext } from "react";
 import Key from "./Key";
 import { AppContext } from "../App";
 
+function disableKeyboardTyping() {
+  document.addEventListener("keydown", function(event) {
+    event.preventDefault();
+  });
+}
+
 function Keyboard() {
   const keys1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
   const keys2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];

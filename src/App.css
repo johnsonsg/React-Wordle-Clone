@@ -39,7 +39,6 @@ nav h1 {
 .board {
   width: 450px;
   height: 550px;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
 }
@@ -63,17 +62,24 @@ nav h1 {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
 }
-
 #correct {
-  background-color: #528d4e;
+  background-color: #538d4e;
 }
 
 #almost {
-  background-color: #b49f39;
+  background-color: #e2cc68;
 }
 
 #error {
-  background-color: #3a393c;
+	background: linear-gradient(
+		-45deg,
+		transparent 48.5%,
+		#ff624d 48.5%,
+		#ff624d 51.5%,
+		transparent 51.5%
+	);
+	border: 1px solid #ff624d;
+	animation: flip 0.6s ease forwards;
 }
 
 .keyboard {
@@ -123,5 +129,9 @@ nav h1 {
   width: 100px;
 }
 #disabled {
-  background-color: #3a393c;
+  background-color: #ff624d;
+  cursor: not-allowed;
+  user-select: none;
+  
+  
 }
