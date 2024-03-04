@@ -17,6 +17,8 @@ function App() {
     gameOver: false,
     guessedWord: false,
   });
+  const [pressed, setPressed] = React.useState(false);
+  console.log("🚀 ~ App ~ pressed:", pressed)
 
   useEffect(() => {
     generateWordSet().then((words) => {
@@ -58,6 +60,7 @@ function App() {
   };
 
   const onSelectLetter = (key) => {
+    console.log("🚀 ~ onSelectLetter ~ key:", key)
     if (currAttempt.letter > 4) return;
     const newBoard = [...board];
     newBoard[currAttempt.attempt][currAttempt.letter] = key;
@@ -66,6 +69,7 @@ function App() {
       attempt: currAttempt.attempt,
       letter: currAttempt.letter + 1,
     });
+    setPressed(true);
   };
 
   return (
@@ -90,7 +94,7 @@ function App() {
       >
         <div className="game">
           <Board />
-          {gameOver.gameOver ? <GameOver /> : <Keyboard />}
+          {gameOver.gameOver ? <GameOver /> : <Keyboard pressed={pressed} />}
         </div>
       </AppContext.Provider>
     </div>

@@ -2,13 +2,7 @@ import React, { useCallback, useEffect, useContext } from "react";
 import Key from "./Key";
 import { AppContext } from "../App";
 
-function disableKeyboardTyping() {
-  document.addEventListener("keydown", function(event) {
-    event.preventDefault();
-  });
-}
-
-function Keyboard() {
+function Keyboard({ pressed }) {
   const keys1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
   const keys2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
   const keys3 = ["Z", "X", "C", "V", "B", "N", "M"];
@@ -63,18 +57,18 @@ function Keyboard() {
     <div className="keyboard" onKeyDown={handleKeyboard}>
       <div className="line1">
         {keys1.map((key) => {
-          return <Key keyVal={key} disabled={disabledLetters.includes(key)} />;
+          return <Key keyVal={key} pressed={pressed} disabled={disabledLetters.includes(key)} />;
         })}
       </div>
       <div className="line2">
         {keys2.map((key) => {
-          return <Key keyVal={key} disabled={disabledLetters.includes(key)} />;
+          return <Key keyVal={key} pressed={pressed} disabled={disabledLetters.includes(key)} />;
         })}
       </div>
       <div className="line3">
         <Key keyVal={"ENTER"} bigKey />
         {keys3.map((key) => {
-          return <Key keyVal={key} disabled={disabledLetters.includes(key)} />;
+          return <Key keyVal={key} pressed={pressed} disabled={disabledLetters.includes(key)} />;
         })}
         <Key keyVal={"DELETE"} bigKey />
       </div>
