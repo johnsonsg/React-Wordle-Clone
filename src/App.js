@@ -11,7 +11,9 @@ function App() {
   const [board, setBoard] = useState(boardDefault);
   const [currAttempt, setCurrAttempt] = useState({ attempt: 0, letter: 0 });
   const [wordSet, setWordSet] = useState(new Set());
+  console.log("🚀 ~ App ~ wordSet:", wordSet)
   const [correctWord, setCorrectWord] = useState("");
+  console.log("🚀 ~ App ~ correctWord:", correctWord)
   const [disabledLetters, setDisabledLetters] = useState([]);
   const [gameOver, setGameOver] = useState({
     gameOver: false,
@@ -21,35 +23,39 @@ function App() {
   console.log("🚀 ~ App ~ pressed:", pressed)
 
   useEffect(() => {
-    generateWordSet().then((words) => {
+    const numberOfWords = 8885;
+    generateWordSet(numberOfWords).then((words) => {
       setWordSet(words.wordSet);
       setCorrectWord(words.todaysWord);
     });
   }, []);
 
-  const onEnter = () => {
-    if (currAttempt.letter !== 5) return;
+const onEnter = () => {
+  if (currAttempt.letter !== 5) return;
 
-    let currWord = "";
-    for (let i = 0; i < 5; i++) {
-      currWord += board[currAttempt.attempt][i];
-    }
-    if (wordSet.has(currWord.toLowerCase())) {
-      setCurrAttempt({ attempt: currAttempt.attempt + 1, letter: 0 });
-    } else {
-      alert("Word not found");
-    }
+  const enteredWord = board[currAttempt.attempt].join('');
 
-    if (currWord === correctWord) {
-      setGameOver({ gameOver: true, guessedWord: true });
-      return;
-    }
-    console.log(currAttempt);
-    if (currAttempt.attempt === 5) {
-      setGameOver({ gameOver: true, guessedWord: false });
-      return;
-    }
-  };
+  if (wordSet.has(enteredWord.toLowerCase())) {
+    setCurrAttempt({ attempt: currAttempt.attempt + 1, letter: 0 });
+  } else {
+    alert("Word not found");
+  }
+
+  if (enteredWord.toLowerCase() === correctWord.toLowerCase()) {
+    console.log("🚀 ~ onEnter ~ YAY!!! correctWord:", correctWord);
+    setGameOver({ gameOver: true, guessedWord: true });
+    return;
+  }
+
+  console.log(currAttempt);
+
+  if (currAttempt.attempt === 5) {
+    setGameOver({ gameOver: true, guessedWord: false });
+    return;
+  }
+
+  console.log("🚀 ~ onEnter ~ enteredWord:", enteredWord);
+};
 
   const onDelete = () => {
     if (currAttempt.letter === 0) return;
